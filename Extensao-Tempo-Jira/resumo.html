@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Tempo nos Grupos de Abas</title>
+  <style>
+    @font-face {
+      font-family: "Open Sans";
+      font-style: normal;
+      font-weight: 400;
+      src: local("Open Sans"), local("OpenSans-Regular"), url("https://cdn.betha.cloud/base/g4/design/4.0.2/assets/fonts/OpenSans-Regular.ttf") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Open Sans";
+      font-style: normal;
+      font-weight: 600;
+      src: local("Open Sans SemiBold"), local("OpenSans-SemiBold"), url("https://cdn.betha.cloud/base/g4/design/4.0.2/assets/fonts/OpenSans-SemiBold.ttf") format("truetype");
+    }
+
+    body {
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container-arrecadacao {
+      font-family: "Open Sans", Arial, sans-serif;
+      color: #333;
+      padding: 20px;
+      background-color: #fff;
+      width: 100%;
+      max-width: 900px;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .titulo-pagina {
+      font-size: 22px;
+      font-weight: 400;
+      color: #222;
+      margin-bottom: 15px;
+      margin-top: 0;
+    }
+
+    .btn-excluir {
+      background-color: #ffffff;
+      color: #444444;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .btn-excluir:hover {
+      background-color: #f7f7f7;
+      border-color: #bbbbbb;
+    }
+
+    .lista-registros {
+      border-top: 1px solid #eeeeee;
+    }
+
+    .divisor-dia {
+      background-color: #f8f9fa;
+      padding: 8px 15px;
+      font-weight: 600;
+      font-size: 13px;
+      color: #555;
+      margin-top: 15px;
+      border-left: 3px solid #888;
+    }
+
+    .grupo-container {
+      border-bottom: 1px solid #eeeeee;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .linha-cabecalho {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 15px;
+      cursor: pointer;
+      background-color: #fff;
+      transition: background-color 0.2s;
+    }
+
+    .linha-cabecalho:hover {
+      background-color: #f9f9f9;
+    }
+
+    .bloco-esquerda {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .seta-svg {
+      transition: transform 0.3s ease;
+      color: #666;
+    }
+
+    .seta-svg.aberta {
+      transform: rotate(90deg);
+    }
+
+    .texto-registro {
+      font-size: 13px;
+      color: #333;
+    }
+    
+    .texto-registro strong {
+      font-weight: 600;
+      color: #111;
+    }
+
+    .bloco-direita {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .valor-total {
+      width: 80px;
+      text-align: left;
+      font-size: 13px;
+      color: #333;
+    }
+
+    .acoes-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 140px;
+      justify-content: flex-end;
+    }
+
+    .link-detalhes {
+      color: #0056b3;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .link-detalhes:hover {
+      text-decoration: underline;
+    }
+
+    .icon-acao {
+      color: #555;
+      width: 15px;
+      height: 15px;
+    }
+
+    .conteudo-expandido {
+      display: none; 
+      padding: 0;
+      background-color: #fafafa;
+      border-top: 1px dashed #eeeeee;
+    }
+
+    .conteudo-expandido.visivel {
+      display: block; 
+    }
+
+    .sessao-linha {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 15px 10px 43px; 
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 12px;
+      color: #555;
+    }
+
+    .sessao-linha:last-child {
+      border-bottom: none;
+    }
+
+    .empty-state {
+      padding: 20px;
+      text-align: center;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container-arrecadacao">
+    <h1 class="titulo-pagina">Apontamentos de Tempo</h1>
+
+    <button id="btn-zerar" class="btn-excluir">
+      <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="3 6 5 6 21 6"></polyline>
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+        <line x1="10" y1="11" x2="10" y2="17"></line>
+        <line x1="14" y1="11" x2="14" y2="17"></line>
+      </svg>
+      LIMPAR HISTÓRICO
+    </button>
+
+    <div class="lista-registros" id="container-relatorio">
+    </div>
+  </div>
+
+  <script src="resumo.js"></script>
+</body>
+</html>

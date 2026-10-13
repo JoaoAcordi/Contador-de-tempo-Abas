@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Contador Tempo apontamento",
+  "version": "2.0",
+  "description": "Conta o tempo que você fica em um grupo no chrome para que possa ser utilizado no apontamento do JIRA.",
+  "permissions": [
+    "tabs",
+    "tabGroups",
+    "storage",
+    "alarms",
+    "scripting",
+    "idle"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Abrir Relatório Completo",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  }
+}
